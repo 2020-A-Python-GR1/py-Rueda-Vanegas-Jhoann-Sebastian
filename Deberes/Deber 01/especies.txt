@@ -1,0 +1,3 @@
+Sardina'-'Sardina pichardus'-'5'-'0.15'-'True
+rue
+Cangrejo'-'Birgus latro'-'2'-'0.10'-'False

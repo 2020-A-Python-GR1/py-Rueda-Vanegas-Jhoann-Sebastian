@@ -1,0 +1,4 @@
+artico europa alemania 12345 True
+pacifico america ecuador 147852 True
+atlantico america colombia 963852 True
+pacifico america peru 456785 True
