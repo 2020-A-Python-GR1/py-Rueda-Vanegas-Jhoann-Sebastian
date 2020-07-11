@@ -1,0 +1,4 @@
+Atlantico;america;colombia;4567845;True;
+pacifico;america;ecuador;7896456;True;
+artico;america;canada;986547;True;
+antartico;africa;sudafrica;985641;False;
