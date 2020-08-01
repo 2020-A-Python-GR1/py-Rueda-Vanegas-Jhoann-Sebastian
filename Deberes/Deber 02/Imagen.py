@@ -7,94 +7,110 @@ from IPython.display import clear_output
 
 class Imagen():
 
-    imagen = None
-    imagen_aux = None
 
-    def __init__(self,imagen):
-        self.imagen = imagen
-        self.imagen_aux
+    def __init__(self, cortes):
+        self.imagen = np.array(misc.ascent())
+        self.mostrar_imagen_original()
+        self.cortes_imagen = [] #tipo list
+        self.cortar_imagen()
+        self.imagen_original_array = np.array(self.cortes_imagen) #convierto en np array
+        self.imagen_auxiliar = np.copy(self.imagen_original_array)
+        self.imagen_auxiliar[0,0]= np.zeros_like(self.imagen_auxiliar[0,0])     #lleno primer elemento siempre de ceros,
+                                                                                #a partir de aqui esta ordenada, pero con la primera posición de la matriz
+                                                                                #llena de ceros, con esta voy a comparar cuando esté ordenada.
+
+        self.lista_imagen = np.copy(self.imagen_auxiliar) #este es el array con el que voy a trabajar para mover las fichas
+        self.reordenar_imagen()
+        #self.mostrar_imagen_desordenada()
+        #self.iniciar_juego()
 
 
-    def mostrar_imagen(self, imagen):
-        plt.imshow(imagen)
+    def mostrar_imagen_original(self):
+        plt.imshow(self.imagen)
         plt.show()
 
-    def reordenar_imagen(self,lista):
-        array = np.zeros(65536).reshape(256, 256)
-        lista[0] = array
-        random.shuffle(lista, random.random)
-        mitad1 = np.array([lista[0],lista[1]])
-        mitad2 = np.array([lista[2],lista[3]])
-        m1 = np.concatenate(mitad1,axis = 1)
-        m2 = np.concatenate(mitad2,axis = 1)
-        imagen_aux = np.concatenate([m1,m2])
-        return ima3
+    def cortar_imagen(self):
+        print('estoy en corte imagenes')
+        corte_uno = np.vsplit(self.imagen, cortes)
+        for i in range(cortes):
+            self.cortes_imagen.append(np.hsplit(corte_uno[i], cortes))
 
-    def cortar_imagen(self,imagen,cortes):                       #por ahora vamos a hacer de 2x2
-        corte_uno,corte_dos= np.split(imagen,cortes)
-        c1, c2 = np.hsplit(corte_uno, 2)
-        c3, c4 = np.hsplit(corte_dos, 2)
-        lista = [c1,c2,c3,c4]
-        return lista
+    def reordenar_imagen(self):
+        print("estoy en inicio reordenar")                      #entra con el shape(2,2,256,256) el array lista_imagen
+        elemetos_h = random.sample(range(cortes), cortes)
+        contador_filas = 0
 
-    def mover_piezas(self):
-        while (1):
+        maux = np.zeros_like(self.lista_imagen)
+        for j in elemetos_h:
+            maux[contador_filas,:,:,:] = np.array(self.lista_imagen[j,:,:,:])           #hasta aqui va quedar en el formato
+            contador_filas += 1                                                         #(n,n,:,:) n es el numero de cortes, y : es el restante para completar el size de la imagen
+
+        imagen_desordenada = []
+        aux2 = []
+        for i in range(cortes):
+            imagen_desordenada.append(np.hstack(maux[i, :, :, :]))
+        print(np.array(imagen_desordenada).shape)
+        for j in range(cortes):
+            aux2.append(np.vstack(imagen_desordenada[:,:,:][j,:,:,:]))
+        plt.imshow(aux2)
+        plt.show()
+
+        '''
+        for a in elemetos_h:
+            maux[:, contador_columnas, :, :] = np.array(self.lista_imagen[:, a, :, :])
+            contador_columnas += 1'''
+
+
+    def mostrar_imagen_desordenada(self):
+        print("Estoy en plot de imagen desordenada")
+        imagen_desordenada = []
+        for i in range(cortes):
+            imagen_desordenada.append(np.hstack(maux[i, :, :, :]))
+        aux = np.vstack(imagen_desordenada)
+        plt.imshow(aux)
+        plt.show()
+
+        #primero necesito saber que donde esta el array de 0s
+
+    def econtrar_posicion_vacia(self):
+        np.where(self.lista_imagen == np.zeros())
+
+    '''def iniciar_juego(self):
+        while(true):
             clear_output()
-            plt.pause(1)
             self.comprobar_completado()
-            valor = input("←(a)  ↑(w)  →(d)   ↓(s)  q (salir)")
-            if (valor == "a"):
-                if (self.posicion_valor[1] != 0):
-                    auxiliar = np.copy(self.imagen_auxiliar[self.posicion_valor[0], self.posicion_valor[1] - 1])
-                    self.imagen_auxiliar[self.posicion_valor[0], self.posicion_valor[1] - 1] = self.imagen_auxiliar[
-                        self.posicion_valor[0], self.posicion_valor[1]]
-                    self.imagen_auxiliar[self.posicion_valor[0], self.posicion_valor[1]] = np.copy(auxiliar)
-                    self.posicion_valor[1] = self.posicion_valor[1] - 1
+            ingreso = input("mueva las piezas segun corresponda: w(up), s(down), a(left), d(right), z(quit)")
+            if(ingreso == 'a'): #movimiento a la izquierda
+                if(0): #toma la pieza y verifica si se puede mover en esa direccion
+
                 else:
-                    print("no puede realizar esete movimiento")
-            if (valor == "w"):
-                if (self.posicion_valor[0] != 0):
-                    auxiliar = np.copy(self.imagen_auxiliar[self.posicion_valor[0] - 1, self.posicion_valor[1]])
-                    self.imagen_auxiliar[self.posicion_valor[0] - 1, self.posicion_valor[1]] = self.imagen_auxiliar[
-                        self.posicion_valor[0], self.posicion_valor[1]]
-                    self.imagen_auxiliar[self.posicion_valor[0], self.posicion_valor[1]] = np.copy(auxiliar)
-                    self.posicion_valor[0] = self.posicion_valor[0] - 1
+                    print("No se puede mover en esa direccion")
+            if(ingreso == 'w'): #movimiento Arriba
+                if(0):
+
                 else:
-                    print("no puede realizar esete movimiento")
-            if (valor == "s"):
-                if (self.posicion_valor[0] != self.dimenciones - 1):
-                    auxiliar = np.copy(self.imagen_auxiliar[self.posicion_valor[0] + 1, self.posicion_valor[1]])
-                    self.imagen_auxiliar[self.posicion_valor[0] + 1, self.posicion_valor[1]] = self.imagen_auxiliar[
-                        self.posicion_valor[0], self.posicion_valor[1]]
-                    self.imagen_auxiliar[self.posicion_valor[0], self.posicion_valor[1]] = np.copy(auxiliar)
-                    self.posicion_valor[0] = self.posicion_valor[0] + 1
+                    print("no se puede mover en esa direccion")
+            if(ingreso == 's'): #movimiento Abajo
+                if(0):
+
                 else:
-                    print("no puede realizar esete movimiento")
-            if (valor == "d"):
-                if (self.posicion_valor[0] != self.dimenciones - 1):
-                    auxiliar = np.copy(self.imagen_auxiliar[self.posicion_valor[0], self.posicion_valor[1] + 1])
-                    self.imagen_auxiliar[self.posicion_valor[0], self.posicion_valor[1] + 1] = self.imagen_auxiliar[
-                        self.posicion_valor[0], self.posicion_valor[1]]
-                    self.imagen_auxiliar[self.posicion_valor[0], self.posicion_valor[1]] = np.copy(auxiliar)
-                    self.posicion_valor[1] = self.posicion_valor[1] + 1
+                    print("no se puede mover en esa direccion")
+            if(ingreso == 'd'): #movimiento a la derecha
+                if(0):
+
                 else:
-                    print("no puede realizar esete movimiento")
-            if (valor == "q"):
-                break
-            self.imprimir_puzzle()
-        clear_output()
+                    print("No se puede mover en esa direccion")
+            if(ingreso == 'z'):
+                exit()
+            self.mostrar_imagen()
+        clear_output()'''
+
 
     def comprobar_completado(self):
-        if np.array_equal(self.imagen_aux, self.imagen):
-            input("Felicidades, juego terminado")
+        if np.array_equal(self.imagen_auxiliar, self.imagen_original):
+            input("Felicidades, el juego ha terminado")
 
 
-imagen = misc.ascent()
-plt.imshow(imagen)
-plt.show()
-im = Imagen(imagen)
-lista = im.cortar_imagen(imagen,2)
-imagen_reordenada = im.reordenar_imagen(lista)
-plt.imshow(imagen_reordenada)
-plt.show()
-im.mover_piezas()
+cortes = int(input("Ingresa el numero: "))
+Imagen(cortes)
+
