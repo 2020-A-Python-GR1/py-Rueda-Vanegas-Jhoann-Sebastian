@@ -36,8 +36,7 @@ class Puzzle:
                                                                                                       posicion / self.dimenciones),
                                                                                                   posicion % self.dimenciones,
                                                                                                   :, :, :]
-            if (int(
-                    posicion / self.dimenciones) == self.dimenciones - 1 and posicion % self.dimenciones == self.dimenciones - 1):
+            if (int(posicion / self.dimenciones) == self.dimenciones - 1 and posicion % self.dimenciones == self.dimenciones - 1):
                 self.posicion_valor = [int(contador / self.dimenciones), contador % self.dimenciones]
             contador = contador + 1
 
