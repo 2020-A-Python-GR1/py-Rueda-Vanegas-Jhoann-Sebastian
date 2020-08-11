@@ -38,7 +38,8 @@ print(a2)
 arreglo = [1,2,0,0,4,0]
 a3 = np.array(arreglo)
 
-print(np.where(a3 == 0))
+print(np.where(~(a3 == 0)))
+
 
 ## 7) Crear una matriz de identidad 3 x 3 
 
@@ -63,7 +64,7 @@ print(c.max())
 
 
 mapache = misc.face()
-print(mapache[::,3])
+print(np.unique(mapache[::,3]))
 plt.imshow(mapache)
 plt.show()
 
@@ -205,6 +206,5 @@ columnas = ["crim","zn","indus","chas","nox"]
 df1 = pd.read_csv(
     path,nrows = 20,
     usecols = columnas)
-
 
 
