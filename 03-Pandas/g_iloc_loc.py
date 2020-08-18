@@ -49,3 +49,84 @@ tercero = df.iloc[0:10]  #filtrado desde x indice hasta y indice
 tercero = df.iloc[df.index == 1035] #filtrar x un arreglo de vdd y falses
 
 tercero = df.iloc[0:10, 0:4]   #filtrado por indices y por rango de indice 0:4
+
+
+#######################################33
+
+datos = {
+    'nota 1':{
+        'pepito':7,
+        'juanita':8,
+        'maria':9},
+    'nota 2':{
+        'pepito':7,
+        'juanita':8,
+        'maria':9},
+    'disciplina':{
+        'pepito':4,
+        'juanita':9,
+        'maria':2},
+    }
+
+notas = pd.DataFrame(datos)
+
+
+condicion_nota = notas['nota 1'] > 7
+condicion_nota2 = notas['nota 2'] > 7
+condicion_disc = notas['disciplina'] > 7
+
+
+mayores_siete = notas.loc[ condicion_nota,['nota 1']]
+
+#esto funciona como un and para filtrar los datos
+pasaron = notas.loc[condicion_nota][condicion_nota2][condicion_disc]
+
+notas.loc['maria', 'disciplina'] = 7
+notas.loc[:, 'disciplina'] = 7
+
+
+####################################################################
+##promedio de las 3 notas n1+n2+d / 3
+
+
+promedio_notas = (notas.loc[:,'nota 1']+ notas.loc[:,'nota 2']+ notas.loc[:,'disciplina']) / 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

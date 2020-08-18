@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estilos Scrapy</title>
+
+    <style>
+        
+    /*
+        Esto es un comentario.
+
+        Las estiquetas se pueden buscar a traves de un ID, donde se debe poner el nombre del identificador.
+    */
+        #titulo-uno{
+        background-color: aqua;
+    }
+
+    h1{
+      background-color: green   ;  
+    }
+    body{
+        color: brown;
+        background-color: cornsilk;
+    }
+    p{
+        background-color: blue;
+    }
+        /* Un disenio para una estiqueta especifica*/
+    
+    /* tambien se puededar estilos por medio de una clase*/
+
+    .fondo-rojo{
+        background-color: red;
+    }
+    .fondo-amarillo{
+        background-color: yellow;
+    }.fondo-verde{
+        background-color: green;
+    }
+
+    /* Jerarquia
+        style >id > class > etiqueta
+        definido ultimo > definido antes */
+
+    /* etiqueta dentro de otra etiqueta*/
+
+    li > p {
+        background-color: purple;
+    }
+
+    body > ul > li > p {
+        background-color: pink;
+    }
+    </style>
+
+</head>
+<body>
+    <h1 id="titulo-uno">Helloooooooou</h1>
+    <h1>asdfasfdsadf</h1>
+    <h1 class="fondo-rojo fondo-verde fondo-amarillo">qwerqt</h1>
+    <p>parrafo uno</p>
+    <p>parrafo 2</p>
+    <p class="fondo-rojo" style= "background-color: black";>parrafo 3</p>
+
+    <ul>
+        <li>uno</li>
+        <li><p>Dos</p></li>
+        <li>Tres</li>
+    </ul>
+    <li><p>Fuera de Ul</p></li>
+
+
+</body>
+</html>
