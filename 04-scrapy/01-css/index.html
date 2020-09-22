@@ -49,6 +49,14 @@
         background-color: purple;
     }
 
+    li > p.epn {
+        background-color: red;
+    }
+
+    li > p.epn.uno {
+        background-color: green;
+    }
+
     body > ul > li > p {
         background-color: pink;
     }
@@ -64,12 +72,14 @@
     <p class="fondo-rojo" style= "background-color: black";>parrafo 3</p>
 
     <ul>
+        <li><p class="epn uno"> Cero</p></li>
         <li>uno</li>
         <li><p>Dos</p></li>
         <li>Tres</li>
+        <li><p class="epn"> Cuatro</p></li>
     </ul>
-    <li><p>Fuera de Ul</p></li>
 
+    <li><p>Fuera de Ul</p></li>
 
 </body>
 </html>
