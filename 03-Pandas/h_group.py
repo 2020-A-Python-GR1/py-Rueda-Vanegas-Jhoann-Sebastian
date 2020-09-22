@@ -48,7 +48,7 @@ def llenar_valores_vacios(series, tipo):
     
     #si esta vacio no hacemos nada
     if lista_valores.empty == True:
-        return seires
+        return series
     else:
         if(tipo == 'promedio'):
             suma = 0
@@ -64,7 +64,9 @@ def llenar_valores_vacios(series, tipo):
             series_valores_llenos = series.fillna(promedio)
             return series_valores_llenos
         if(tipo == 'mas_repetido'):
-            pass
+            mas_repetido = lista_valores.index[0]
+            series_valores_llenos = series.fillna(mas_repetido)
+            return series_valores_llenos
         
 def transformar_df(df):
     df_artist = df.groupby('artist')
